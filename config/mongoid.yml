@@ -1,0 +1,20 @@
+development:
+  clients:
+    default:
+      uri: <%= ENV.fetch("MONGODB_URI", "mongodb://localhost:27017/challenge_tech_development") %>
+      options:
+        server_selection_timeout: 5
+
+test:
+  clients:
+    default:
+      uri: <%= ENV.fetch("MONGODB_URI_TEST", "mongodb://localhost:27017/challenge_tech_test") %>
+      options:
+        server_selection_timeout: 5
+
+production:
+  clients:
+    default:
+      uri: <%= ENV["MONGODB_URI"] %>
+      options:
+        server_selection_timeout: 5
