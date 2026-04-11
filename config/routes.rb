@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-
   namespace :api do
     namespace :v1 do
-      get "quotes/:tag", to: "quotes#show"
+      post "auth/sign_up", to: "auth#sign_up"
+      post "auth/sign_in", to: "auth#sign_in"
+      get  "quotes/:tag",  to: "quotes#show"
     end
   end
 
