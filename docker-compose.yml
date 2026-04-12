@@ -8,8 +8,10 @@ services:
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
     depends_on:
-      - mongo
-      - redis
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_healthy
     volumes:
       - .:/rails
     command: ./bin/rails server -b 0.0.0.0
@@ -21,11 +23,14 @@ services:
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
     depends_on:
-      - mongo
-      - redis
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_healthy
     volumes:
       - .:/rails
     command: bundle exec sidekiq
+    restart: on-failure
 
   mongo:
     image: mongo:7
@@ -36,8 +41,11 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
 volumes:
   mongo_data:
