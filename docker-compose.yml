@@ -5,6 +5,7 @@ services:
       - "3000:3000"
     environment:
       MONGODB_URI: mongodb://mongo:27017/challenge_tech_development
+      MONGODB_URI_TEST: mongodb://mongo:27017/challenge_tech_test
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
     depends_on:
