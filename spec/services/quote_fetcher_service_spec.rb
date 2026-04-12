@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuoteFetcherService do
   let(:tag) { "love" }
-  let(:quotes) { [{ "quote" => "A quote", "author" => "Someone", "author_about" => "", "tags" => ["love"] }] }
+  let(:quotes) { [ { "quote" => "A quote", "author" => "Someone", "author_about" => "", "tags" => [ "love" ] } ] }
 
   context "when tag is cached with quotes" do
     before do

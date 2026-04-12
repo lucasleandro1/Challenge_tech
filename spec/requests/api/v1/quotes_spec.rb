@@ -4,7 +4,7 @@ RSpec.describe "GET /api/v1/quotes/:tag", type: :request do
   let(:user) { create(:user) }
   let(:token) { user.generate_access_token! }
   let(:headers) { { "Authorization" => "Bearer #{token}" } }
-  let(:quotes) { [{ "quote" => "A quote", "author" => "Someone", "author_about" => "", "tags" => ["love"] }] }
+  let(:quotes) { [ { "quote" => "A quote", "author" => "Someone", "author_about" => "", "tags" => [ "love" ] } ] }
 
   before do
     host! "localhost"
