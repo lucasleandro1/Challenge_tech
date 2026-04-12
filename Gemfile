@@ -9,6 +9,7 @@ gem "sidekiq-cron"
 gem "httparty"
 gem "nokogiri"
 gem "bootsnap", require: false
+gem "ostruct"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

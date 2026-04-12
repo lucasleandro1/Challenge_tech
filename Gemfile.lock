@@ -195,6 +195,7 @@ GEM
     nokogiri (1.19.2-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     parallel (2.0.1)
     parser (3.3.11.1)
       ast (~> 2.4.1)
@@ -366,6 +367,7 @@ DEPENDENCIES
   mongoid (~> 9.0)
   mongoid-rspec
   nokogiri
+  ostruct
   puma (>= 5.0)
   rails (~> 8.0.4)
   rspec-rails
