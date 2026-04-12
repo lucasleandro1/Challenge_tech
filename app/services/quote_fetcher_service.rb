@@ -4,7 +4,7 @@ class QuoteFetcherService
   end
 
   def call
-    cached = TagCache.find_by(name: @tag)
+    cached = TagCache.where(name: @tag).first
 
     if cached&.quotes&.any?
       cached.quotes
