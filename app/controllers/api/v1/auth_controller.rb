@@ -14,7 +14,7 @@ module Api
       end
 
       def sign_in
-        user = User.find_by(email: params[:email])
+        user = User.where(email: params[:email]).first
 
         if user&.valid_password?(params[:password])
           render json: { token: user.generate_access_token! }, status: :ok

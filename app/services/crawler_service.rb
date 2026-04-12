@@ -1,5 +1,6 @@
 class CrawlerService
-  BASE_URL = "http://quotes.toscrape.com/tag"
+  SITE_URL = "http://quotes.toscrape.com"
+  BASE_URL = "#{SITE_URL}/tag"
 
   def initialize(tag)
     @tag = tag
@@ -29,6 +30,6 @@ class CrawlerService
 
   def build_author_url(node)
     path = node.css("a").find { |a| a["href"]&.include?("/author/") }&.[]("href")
-    path ? "http://quotes.toscrape.com#{path}" : ""
+    path ? "#{SITE_URL}#{path}" : ""
   end
 end
