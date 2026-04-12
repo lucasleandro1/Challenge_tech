@@ -8,9 +8,16 @@ class CrawlerService
 
   def call
     response = HTTParty.get("#{BASE_URL}/#{@tag}")
-    return [] unless response.success?
+
+    unless response.success?
+      Rails.logger.warn "CrawlerService: request failed for tag '#{@tag}' (HTTP #{response.code})"
+      return []
+    end
 
     parse(response.body)
+  rescue HTTParty::Error, SocketError, Timeout::Error => e
+    Rails.logger.error "CrawlerService: error fetching tag '#{@tag}' - #{e.class}: #{e.message}"
+    []
   end
 
   private
