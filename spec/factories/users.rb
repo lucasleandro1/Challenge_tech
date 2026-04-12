@@ -2,5 +2,6 @@ FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
     password { "password123" }
+    access_token { SecureRandom.hex(24) }
   end
 end

@@ -5,14 +5,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'webmock/rspec'
 
-# Disable ActiveRecord fixture setup (app uses Mongoid, not ActiveRecord)
-module ActiveRecord
-  module TestFixtures
-    def setup_fixtures(config = nil); end
-    def teardown_fixtures; end
-  end
-end
-
 RSpec.configure do |config|
   config.use_active_record = false
   config.include FactoryBot::Syntax::Methods

@@ -5,6 +5,7 @@ RSpec.describe RefreshQuotesJob do
   let(:new_quote)      { { "quote" => "New quote", "author" => "Author", "author_about" => "", "tags" => ["love"] } }
 
   before do
+    TagCache.destroy_all
     TagCache.create!(name: "love", quotes: [existing_quote])
   end
 
@@ -15,7 +16,7 @@ RSpec.describe RefreshQuotesJob do
 
     described_class.new.perform
 
-    tag_cache = TagCache.find_by(name: "love")
+    tag_cache = TagCache.where(name: "love").first
     expect(tag_cache.quotes.size).to eq(2)
     expect(tag_cache.quotes.map { |q| q["quote"] }).to include("Old quote", "New quote")
   end
@@ -25,7 +26,7 @@ RSpec.describe RefreshQuotesJob do
 
     described_class.new.perform
 
-    tag_cache = TagCache.find_by(name: "love")
+    tag_cache = TagCache.where(name: "love").first
     expect(tag_cache.quotes.size).to eq(1)
   end
 end

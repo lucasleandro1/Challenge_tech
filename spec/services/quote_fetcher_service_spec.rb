@@ -6,6 +6,7 @@ RSpec.describe QuoteFetcherService do
 
   context "when tag is cached with quotes" do
     before do
+      TagCache.destroy_all
       TagCache.create!(name: tag, quotes: quotes)
     end
 
@@ -25,12 +26,12 @@ RSpec.describe QuoteFetcherService do
       allow_any_instance_of(CrawlerService).to receive(:call).and_return(quotes)
       result = described_class.new(tag).call
       expect(result).to eq(quotes)
-      expect(TagCache.find_by(name: tag)).not_to be_nil
+      expect(TagCache.where(name: tag).first).not_to be_nil
     end
   end
 
   context "when tag exists but has no quotes" do
-    before { TagCache.create!(name: tag, quotes: []) }
+    before { TagCache.destroy_all; TagCache.create!(name: tag, quotes: []) }
 
     after { TagCache.destroy_all }
 
