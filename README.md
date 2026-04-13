@@ -34,65 +34,10 @@ docker compose up --build
 # 3. A API estará disponível em http://localhost:3000
 ```
 
-O seed roda automaticamente na inicialização criando um usuário e um cache de exemplo.
-
 ### Credenciais de teste
 
-| Campo | Valor |
-|---|---|
-| Email | `admin@dimensa.com` |
-| Senha | `senha123` |
-
-### Tag com cache pré-carregado
-
-A tag `inspirational` já vem com 3 frases salvas no banco, útil para testar o retorno do cache sem precisar esperar o crawler.
-
-Os serviços iniciados são:
-
-| Serviço | Descrição |
-|---|---|
-| `app` | Rails API na porta 3000 |
-| `mongo` | MongoDB na porta 27017 |
-| `redis` | Redis (interno) |
-| `sidekiq` | Worker para jobs em background |
-
----
-
-## Endpoints
-
-### Autenticação
-
-#### Cadastro
-```
-POST /api/v1/auth/sign_up
-Content-Type: application/json
-
-{
-  "email": "usuario@email.com",
-  "password": "senha123"
-}
-```
-
-Resposta `201`:
-```json
-{ "token": "abc123..." }
-```
-
-#### Login
-```
-POST /api/v1/auth/sign_in
-Content-Type: application/json
-
-{
-  "email": "usuario@email.com",
-  "password": "senha123"
-}
-```
-
-Resposta `200`:
-```json
-{ "token": "abc123..." }
-```
+Email  `admin@dimensa.com`
+Senha  `senha123`
 
 ### Quotes
 
@@ -116,42 +61,7 @@ Resposta `200`:
 }
 ```
 
-Sem token — resposta `401`:
-```json
-{ "error": "Unauthorized" }
-```
-
----
-
 ## Funcionamento
-
-### Fluxo de uma requisição
-
-```
-GET /api/v1/quotes/love
-       │
-       ▼
-ApplicationController#authenticate_user!
-  → verifica Bearer token no header
-  → retorna 401 se inválido
-       │
-       ▼
-QuotesController#show
-       │
-       ▼
-QuoteFetcherService#call
-  ┌────────────────────────────────────┐
-  │ Tag existe no MongoDB com quotes?  │
-  │   Sim → retorna do cache           │
-  │   Não → chama CrawlerService       │
-  │         salva no MongoDB           │
-  │         retorna os resultados      │
-  └────────────────────────────────────┘
-       │
-       ▼
-QuoteSerializer
-  → formata cada quote para o JSON esperado
-```
 
 ### Cache
 
