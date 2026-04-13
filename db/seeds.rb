@@ -1,9 +1,36 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+user = User.find_or_initialize_by(email: "admin@dimensa.com")
+unless user.persisted?
+  user.password = "senha123"
+  user.save!
+  puts "Usuário criado: admin@dimensa.com / senha123"
+else
+  puts "Usuário já existe: admin@dimensa.com"
+end
+
+tag_cache = TagCache.find_or_initialize_by(name: "inspirational")
+unless tag_cache.persisted?
+  tag_cache.quotes = [
+    {
+      "quote" => "The only way to do great work is to love what you do.",
+      "author" => "Steve Jobs",
+      "author_about" => "http://quotes.toscrape.com/author/Steve-Jobs",
+      "tags" => ["inspirational", "work"]
+    },
+    {
+      "quote" => "In the middle of every difficulty lies opportunity.",
+      "author" => "Albert Einstein",
+      "author_about" => "http://quotes.toscrape.com/author/Albert-Einstein",
+      "tags" => ["inspirational"]
+    },
+    {
+      "quote" => "It does not matter how slowly you go as long as you do not stop.",
+      "author" => "Confucius",
+      "author_about" => "http://quotes.toscrape.com/author/Confucius",
+      "tags" => ["inspirational", "perseverance"]
+    }
+  ]
+  tag_cache.save!
+  puts "TagCache criado: inspirational (#{tag_cache.quotes.size} quotes)"
+else
+  puts "TagCache já existe: inspirational"
+end
