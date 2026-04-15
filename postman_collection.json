@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "Challenge Tech - Dimensa",
+    "name": "Challenge Tech",
     "description": "API de web crawler de frases — quotes.toscrape.com",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -131,6 +131,6 @@
           }
         }
       ]
-    },
+    }
   ]
 }
