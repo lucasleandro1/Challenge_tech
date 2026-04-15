@@ -39,7 +39,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "v1", "auth", "sign_up"]
             },
-            "description": "Cria um novo usuário e retorna o token de acesso.\n\nResposta esperada (201):\n{\n  \"token\": \"abc123...\"\n}"
+            "description": ""
           },
           "event": [
             {
@@ -76,7 +76,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "v1", "auth", "sign_in"]
             },
-            "description": "Autentica o usuário e retorna um novo token de acesso.\n\nResposta esperada (200):\n{\n  \"token\": \"abc123...\"\n}\n\nErro (401):\n{\n  \"error\": \"Invalid email or password\"\n}"
+            "description": ""
           },
           "event": [
             {
@@ -114,7 +114,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "v1", "quotes", "love"]
             },
-            "description": "Busca frases pela tag informada na URL.\n\n- 1ª requisição: crawla o site e salva no MongoDB\n- Requisições seguintes: retorna do cache (MongoDB)\n- Tag sem resultados: tenta crawlar novamente\n\nResposta esperada (200):\n{\n  \"quotes\": [\n    {\n      \"quote\": \"texto da frase\",\n      \"author\": \"nome do autor\",\n      \"author_about\": \"http://quotes.toscrape.com/author/...\",\n      \"tags\": [\"tag1\", \"tag2\"]\n    }\n  ]\n}\n\nSem token (401):\n{\n  \"error\": \"Unauthorized\"\n}"
+            "description": ""
           }
         },
         {
@@ -127,7 +127,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "v1", "quotes", "love"]
             },
-            "description": "Demonstra que o endpoint é protegido. Deve retornar 401."
+            "description": ""
           }
         }
       ]
