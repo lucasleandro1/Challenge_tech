@@ -6,14 +6,10 @@ class User
 
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
-  field :access_token,       type: String
-
-  ## Recoverable
+  field :access_token,           type: String
   field :reset_password_token,   type: String
   field :reset_password_sent_at, type: Time
-
-  ## Rememberable
-  field :remember_created_at, type: Time
+  field :remember_created_at,    type: Time
 
   index({ email: 1 }, { unique: true })
   index({ access_token: 1 })

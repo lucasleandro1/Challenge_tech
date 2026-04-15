@@ -1,5 +1,7 @@
+REDIS_CONFIG = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }.freeze
+
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
+  config.redis = REDIS_CONFIG
 
   config.on(:startup) do
     schedule = [
@@ -15,5 +17,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
+  config.redis = REDIS_CONFIG
 end

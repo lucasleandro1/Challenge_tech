@@ -26,7 +26,7 @@ RSpec.describe "GET /api/v1/quotes/:tag", type: :request do
   context "without token" do
     it "returns unauthorized" do
       get "/api/v1/quotes/love"
-expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end

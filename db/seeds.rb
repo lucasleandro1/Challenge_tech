@@ -2,9 +2,9 @@ user = User.find_or_initialize_by(email: "admin@dimensa.com")
 unless user.persisted?
   user.password = "senha123"
   user.save!
-  puts "Usuário criado: admin@dimensa.com / senha123"
+  puts "User created: admin@dimensa.com / senha123"
 else
-  puts "Usuário já existe: admin@dimensa.com"
+  puts "User already exists: admin@dimensa.com"
 end
 
 tag_cache = TagCache.find_or_initialize_by(name: "inspirational")
@@ -30,7 +30,7 @@ unless tag_cache.persisted?
     }
   ]
   tag_cache.save!
-  puts "TagCache criado: inspirational (#{tag_cache.quotes.size} quotes)"
+  puts "TagCache created: inspirational (#{tag_cache.quotes.size} quotes)"
 else
-  puts "TagCache já existe: inspirational"
+  puts "TagCache already exists: inspirational"
 end
