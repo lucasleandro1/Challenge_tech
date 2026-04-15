@@ -1,0 +1,136 @@
+{
+  "info": {
+    "name": "Challenge Tech - Dimensa",
+    "description": "API de web crawler de frases — quotes.toscrape.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario@email.com\",\n  \"password\": \"senha123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/sign_up",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "sign_up"]
+            },
+            "description": "Cria um novo usuário e retorna o token de acesso.\n\nResposta esperada (201):\n{\n  \"token\": \"abc123...\"\n}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) {",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "  console.log('Token salvo:', json.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Sign In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario@email.com\",\n  \"password\": \"senha123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/sign_in",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "sign_in"]
+            },
+            "description": "Autentica o usuário e retorna um novo token de acesso.\n\nResposta esperada (200):\n{\n  \"token\": \"abc123...\"\n}\n\nErro (401):\n{\n  \"error\": \"Invalid email or password\"\n}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var json = pm.response.json();",
+                  "if (json.token) {",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "  console.log('Token salvo:', json.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quotes",
+      "item": [
+        {
+          "name": "Buscar quotes por tag",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/quotes/love",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "quotes", "love"]
+            },
+            "description": "Busca frases pela tag informada na URL.\n\n- 1ª requisição: crawla o site e salva no MongoDB\n- Requisições seguintes: retorna do cache (MongoDB)\n- Tag sem resultados: tenta crawlar novamente\n\nResposta esperada (200):\n{\n  \"quotes\": [\n    {\n      \"quote\": \"texto da frase\",\n      \"author\": \"nome do autor\",\n      \"author_about\": \"http://quotes.toscrape.com/author/...\",\n      \"tags\": [\"tag1\", \"tag2\"]\n    }\n  ]\n}\n\nSem token (401):\n{\n  \"error\": \"Unauthorized\"\n}"
+          }
+        },
+        {
+          "name": "Buscar quotes por tag (sem token)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/quotes/love",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "quotes", "love"]
+            },
+            "description": "Demonstra que o endpoint é protegido. Deve retornar 401."
+          }
+        }
+      ]
+    },
+  ]
+}
