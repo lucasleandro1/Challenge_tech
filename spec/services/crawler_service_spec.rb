@@ -29,6 +29,11 @@ RSpec.describe CrawlerService do
     expect(result.first["tags"]).to include("love", "life")
   end
 
+  it "returns the author_about url" do
+    result = described_class.new(tag).call
+    expect(result.first["author_about"]).to eq("http://quotes.toscrape.com/author/Albert-Einstein")
+  end
+
   context "when the request fails" do
     before do
       stub_request(:get, "http://quotes.toscrape.com/tag/#{tag}")
@@ -38,6 +43,17 @@ RSpec.describe CrawlerService do
     it "returns an empty array" do
       result = described_class.new(tag).call
       expect(result).to eq([])
+    end
+  end
+
+  context "when a network error occurs" do
+    before do
+      stub_request(:get, "http://quotes.toscrape.com/tag/#{tag}")
+        .to_raise(SocketError)
+    end
+
+    it "returns an empty array" do
+      expect(described_class.new(tag).call).to eq([])
     end
   end
 end
