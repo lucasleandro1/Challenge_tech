@@ -34,6 +34,10 @@ docker compose up --build
 # 3. A API estará disponível em http://localhost:3000
 ```
 
+### Testando com Postman
+
+O arquivo `postman_collection.json` na raiz do repositório pode ser importado diretamente no Postman.
+
 ### Credenciais de teste
 
 Email  `admin@dimensa.com`
