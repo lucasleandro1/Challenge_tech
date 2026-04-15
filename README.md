@@ -1,4 +1,4 @@
-# Challenge Tech — Dimensa
+# Challenge Tech
 
 API REST para busca de frases por tag, com cache em MongoDB e atualização automática via Sidekiq.
 
