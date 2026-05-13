@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 8.0.4"
 gem "puma", ">= 5.0"
-gem "mongoid", "~> 9.0"
+gem "mongoid", "~> 9.1"
 gem "devise"
 gem "sidekiq"
 gem "sidekiq-cron"
